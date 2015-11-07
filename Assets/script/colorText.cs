@@ -9,36 +9,38 @@ public class colorText : MonoBehaviour {
 	public GameObject chuCaiMau;
 
 	int kichThuoc;
+	public int size ;
+	public float khoangCach;
 	GameObject[] moji;
-	string textHienTai="@@@@@@@@@@@@@@@@@@@@@@";
+	string textHienTai="@@@@@@@@@$%$%@@@@@@@@@@@@@";
 	// Use this for initialization
 	void Start () {
-		kichThuoc = GameSettings.size * GameSettings.size;
+		kichThuoc =size *size;
 		style = vangXanhStyle;
 		moji  = new GameObject[kichThuoc];
-		textHienTai = "@@@@@@@@@@@@@@@@@@@@@@";
+		textHienTai = "@@@@@@@@@@@@@@%$%#$%@@@@@@@@";
 		for(int i = 0; i<kichThuoc;i++)
 		{
 			moji[i] = (GameObject)Instantiate(chuCaiMau, new Vector3(-100, -100, -100), this.transform.rotation);
 			moji[i].transform.parent = this.transform;
-			moji[i].transform.localPosition = new Vector3(0.5f*i,0,0);
+			moji[i].transform.localPosition = new Vector3(khoangCach*i,0,0);
 			moji[i].GetComponent<Animation>().wrapMode = WrapMode.Once;
 			moji[i].gameObject.SetActive(false);
-
+			
 		}
-		GetComponent<Animation>().wrapMode = WrapMode.Once;
-		setText("0");
+		//animation.wrapMode = WrapMode.Once;
+		setText ("120");
 	}
 	public void setText(string strText)
 	{
 		string strTemp ="";
 		string strTemp2 ="";
-//		Debug.Log("AAAAAAAAAAAAAAAAAA    '" + strText+"'");
+		//		Debug.Log("AAAAAAAAAAAAAAAAAA    '" + strText+"'");
 		strText = strText.Trim();
 		if(strText.Length!=textHienTai.Length)
 		{
 			int len = strText.Length;
-			float start = 0-0.3f*(len-1);
+			float start = 0-(khoangCach/2)*(len-1);
 			textHienTai = "";
 			for(int i=0;i<kichThuoc;i++)
 			{
@@ -48,10 +50,10 @@ public class colorText : MonoBehaviour {
 					{
 						moji[i].SetActive(true);
 					}
-					moji[i].transform.localPosition = new Vector3(start + 0.6f*i,0,0);
-				
+					moji[i].transform.localPosition = new Vector3(start + khoangCach*i,0,0);
+					
 					textHienTai += "@";
-
+					
 				}
 				else
 				{
@@ -75,11 +77,11 @@ public class colorText : MonoBehaviour {
 			{
 				//Debug.Log(strTemp+"-"+strTemp2);
 				moji[i].GetComponent<Renderer>().material.mainTexture = style[int.Parse(strTemp)];
-				//moji[i].animation.Play("xuatHien1");
+				moji[i].GetComponent<Animation>().Play("xuatHien1");
 			}
 		}
 		textHienTai  = strText;
-		GetComponent<Animation>().Play("anDiem");
+		//animation.Play("anDiem");
 	}
 	// Update is called once per frame
 	void Update () {
