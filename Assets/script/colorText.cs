@@ -29,7 +29,7 @@ public class colorText : MonoBehaviour {
 			
 		}
 		//animation.wrapMode = WrapMode.Once;
-		setText ("120");
+		setText ("00");
 	}
 	public void setText(string strText)
 	{
